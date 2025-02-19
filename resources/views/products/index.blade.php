@@ -3,9 +3,17 @@
 
 @section('content')
 
+    @if(Auth::check())
+        <form action="{{ route('logout') }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-secondary mb-3">Выйти</button>
+        </form>
+    @endif
     <h1 class="mb-3">Продукты</h1>
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Добавить</a>
-    <a href="{{ route('categories.index') }}" class="btn btn-primary mb-3">Категории</a>
+    @if(Auth::check())
+        <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Добавить</a>
+        <a href="{{ route('categories.index') }}" class="btn btn-primary mb-3">Категории</a>
+    @endif
 
     <div class="row">
         <div class="col-2">
@@ -43,15 +51,17 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->category->name }}</td>
-                    <td><a href="{{ route('products.show', $product) }}" class="btn btn-primary">Подробнее</a></td>
-                    <td><a href="{{ route('products.edit', $product) }}" class="btn btn-primary">Изменить</a></td>
-                    <td>
-                        <form action="{{ route('products.destroy', $product) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger">Удалить</button>
-                        </form>
-                    </td>
+                    @if(Auth::check())
+                        <td><a href="{{ route('products.show', $product) }}" class="btn btn-primary">Подробнее</a></td>
+                        <td><a href="{{ route('products.edit', $product) }}" class="btn btn-primary">Изменить</a></td>
+                        <td>
+                            <form action="{{ route('products.destroy', $product) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
