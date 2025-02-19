@@ -25,8 +25,7 @@
                     <input type="password" name="password" id="password" class="form-control">
                 </div>
 
-                <button type="submit" class="btn btn-success mb-3 d-block">Зарегистрироваться</button>
-                <a href="{{ route('login.form') }}" class="link">Войти</a>
+                <button type="submit" class="btn btn-success">Зарегистрироваться</button>
             </form>
         </div>
     </div>

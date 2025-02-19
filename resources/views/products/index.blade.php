@@ -3,16 +3,9 @@
 
 @section('content')
 
-    @if(Auth::check())
-        <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <button type="submit" class="btn btn-secondary mb-3">Выйти</button>
-        </form>
-    @endif
     <h1 class="mb-3">Продукты</h1>
     @if(Auth::check())
         <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Добавить</a>
-        <a href="{{ route('categories.index') }}" class="btn btn-primary mb-3">Категории</a>
     @endif
 
     <div class="row">

@@ -5,7 +5,6 @@
 
     <h1 class="mb-3">Категории</h1>
     <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Добавить</a>
-    <a href="{{ route('products.index') }}" class="btn btn-primary mb-3">Товары</a>
 
     <table class="table table-striped">
         <thead>

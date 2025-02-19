@@ -28,8 +28,7 @@
                 <p class="alert alert-danger">{{ $message }}</p>
                 @enderror
 
-                <button type="submit" class="btn btn-success mb-3 d-block">Войти</button>
-                <a href="{{ route('register.form') }}" class="link">Зарегистрироваться</a>
+                <button type="submit" class="btn btn-success">Войти</button>
             </form>
         </div>
     </div>
