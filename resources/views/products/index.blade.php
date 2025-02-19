@@ -43,10 +43,10 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->category->name }}</td>
-                    <td><a href="{{ route('products.show', $product->id) }}" class="btn btn-primary">Подробнее</a></td>
-                    <td><a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">Изменить</a></td>
+                    <td><a href="{{ route('products.show', $product) }}" class="btn btn-primary">Подробнее</a></td>
+                    <td><a href="{{ route('products.edit', $product) }}" class="btn btn-primary">Изменить</a></td>
                     <td>
-                        <form action="{{ route('products.destroy', $product->id) }}" method="post">
+                        <form action="{{ route('products.destroy', $product) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger">Удалить</button>

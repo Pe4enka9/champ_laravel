@@ -9,14 +9,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 /**
+ *
+ *
  * @property int $id
  * @property string $name
  * @property int $category_id
+ * @property float $price
  * @property Carbon $created_at
  * @property Carbon $updated_at
- *
- * @method static create(array $data)
- * @method static findOrFail(int $id)
+ * @property-read \App\Models\Category $category
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Product extends Model
 {
@@ -34,22 +45,5 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
-    }
-
-    /**
-     * Фильтрация по категориям
-     *
-     * @param Request $request
-     * @return Collection
-     */
-    public static function filter(Request $request): Collection
-    {
-        $query = Product::query();
-
-        if ($request->has('category_id') && $request->category_id !== 'all') {
-            $query->where('category_id', $request->category_id);
-        }
-
-        return $query->get();
     }
 }

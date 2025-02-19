@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Queries\ProductQuery;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,12 +16,13 @@ class ProductController extends Controller
      * Все товары
      *
      * @param Request $request
+     * @param ProductQuery $productQuery
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request, ProductQuery $productQuery): View
     {
         /** @var Product[] $products */
-        $products = Product::filter($request);
+        $products = $productQuery->filter($request->get('category_id'));
 
         /** @var Category[] $categories */
         $categories = Category::all();
@@ -64,14 +66,11 @@ class ProductController extends Controller
     /**
      * Подробнее о товаре
      *
-     * @param int $id
+     * @param Product $product
      * @return View
      */
-    public function show(int $id): View
+    public function show(Product $product): View
     {
-        /** @var Product $product */
-        $product = Product::query()->findOrFail($id);
-
         return view('products.show', [
             'product' => $product,
         ]);
@@ -80,14 +79,11 @@ class ProductController extends Controller
     /**
      * Страница редактирования товара
      *
-     * @param int $id
+     * @param Product $product
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Product $product): View
     {
-        /** @var Product $product */
-        $product = Product::findOrFail($id);
-
         /** @var Category[] $categories */
         $categories = Category::all();
 
@@ -101,15 +97,12 @@ class ProductController extends Controller
      * Обновление товара в БД
      *
      * @param ProductRequest $request
-     * @param int $id
+     * @param Product $product
      * @return RedirectResponse
      */
-    public function update(ProductRequest $request, int $id): RedirectResponse
+    public function update(ProductRequest $request, Product $product): RedirectResponse
     {
         $validated = $request->validated();
-
-        /** @var Product $product */
-        $product = Product::findOrFail($id);
 
         $product->update($validated);
 
@@ -119,14 +112,11 @@ class ProductController extends Controller
     /**
      * Удаление товара из БД
      *
-     * @param int $id
+     * @param Product $product
      * @return RedirectResponse
      */
-    public function destroy(int $id): RedirectResponse
+    public function destroy(Product $product): RedirectResponse
     {
-        /** @var Product $product */
-        $product = Product::findOrFail($id);
-
         $product->delete();
 
         return redirect()->route('products.index');
