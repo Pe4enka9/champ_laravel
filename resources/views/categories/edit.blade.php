@@ -14,7 +14,10 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Название</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Название" value="{{ $category->name }}">
+                    <input type="text" name="name" id="name"
+                           class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" placeholder="Название"
+                           value="{{ $category->name }}">
+                    @error('name') <p class="invalid-feedback">{{ $message }}</p> @enderror
                 </div>
 
                 <button type="submit" class="btn btn-success">Изменить</button>

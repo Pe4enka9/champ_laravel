@@ -24,7 +24,19 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:3'],
+            'password' => ['required', 'min:3', 'string'],
+        ];
+    }
+
+    /**
+     * Ошибки валидации
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'email.unique' => 'Эта эл. почта уже занята',
         ];
     }
 }

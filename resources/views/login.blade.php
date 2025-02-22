@@ -13,7 +13,8 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">Эл. почта</label>
                     <input type="email" name="email" id="email"
-                           class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}">
+                           class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                           value="{{ old('email') }}">
                     @error('email') <p class="invalid-feedback">{{ $message }}</p> @enderror
                 </div>
 
